@@ -55,13 +55,11 @@ public class ClientesDAO {
     }
 
     //Método alteraCliente
-    public void alterarCliente(Clientes obj){
-        
+    public void alterarCliente(Clientes obj) {
+
         try {
             //Comando SQL
-            String sql = "update set tb_clientes (nome=?, rg=?, email=?, cpf=?, telefone=?, celular=?, cep=?,"
-                    + "endereco=?, numero=?, complemento=?, bairro=?, cidade=?, estado=?)";
-                    
+            String sql = "update tb_clientes set nome=?, rg=?, email=?, cpf=?, telefone=?, celular=?, cep=?, endereco=?, numero=?, complemento=?, bairro=?, cidade=?, estado=? where id=?";
 
             //Conectando ao Banco de Dados
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -78,8 +76,8 @@ public class ClientesDAO {
             stmt.setString(11, obj.getBairro());
             stmt.setString(12, obj.getCidade());
             stmt.setString(13, obj.getEstado());
-            
-            stmt.setInt(1, obj.getId());
+
+            stmt.setInt(14, obj.getId());
 
             //Executando e fechando comando SQL
             stmt.execute();
@@ -90,13 +88,12 @@ public class ClientesDAO {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar cliente" + erro);
         }
-    
+
     }
-    
-    
+
     //Método excluiCliente
-    public void excluirCliente(Clientes obj){
-        
+    public void excluirCliente(Clientes obj) {
+
         try {
             //Comando SQL
             String sql = "delete from tb_clientes where id=?";
@@ -104,7 +101,6 @@ public class ClientesDAO {
             //Conectando ao Banco de Dados
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, obj.getId());
-
 
             //Executando e fechando comando SQL
             stmt.execute();
@@ -115,10 +111,9 @@ public class ClientesDAO {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir cliente" + erro);
         }
-        
+
     }
-    
-    
+
     //Método Listando todos os clientes
     public List<Clientes> listarClientes() {
 
